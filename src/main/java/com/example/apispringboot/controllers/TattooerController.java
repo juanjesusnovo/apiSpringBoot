@@ -1,7 +1,6 @@
 package com.example.apispringboot.controllers;
 import com.example.apispringboot.models.Tattooer;
 import com.example.apispringboot.repositories.TattooerRepository;
-import com.example.apispringboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

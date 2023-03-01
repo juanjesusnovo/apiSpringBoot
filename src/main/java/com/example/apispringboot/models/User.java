@@ -1,10 +1,10 @@
 package com.example.apispringboot.models;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity @Getter @Setter
 @Table(name = "usersCustom")
@@ -12,6 +12,12 @@ public class User {
     @Id
     @GeneratedValue
     private Long Id;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Message> messages = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Message> rates = new HashSet<>();
 
     private String name;
     private String surname;
