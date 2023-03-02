@@ -13,30 +13,30 @@ public class MessageController {
     @Autowired
     MessageRepository messageRepository;
 
-    @GetMapping("/rates")
+    @GetMapping("/messages")
     public ResponseEntity<Object> index() {
         return new ResponseEntity<>(messageRepository.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/rates/{id}")
+    @GetMapping("/messages/{id}")
     public ResponseEntity<Object> show(@PathVariable("id") Long Id) {
         return new ResponseEntity<>(messageRepository.findById(Id), HttpStatus.OK);
     }
 
-    @PostMapping("/rates/create")
+    @PostMapping("/messages/create")
     public ResponseEntity<Object> create(@RequestBody Message message) {
         messageRepository.save(message);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @DeleteMapping("/rates/{id}")
+    @DeleteMapping("/messages/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") Long Id) {
         Optional<Message> message  = messageRepository.findById(Id);
         message.ifPresent(value -> messageRepository.delete(value));
         return new ResponseEntity<>(message.isPresent(), HttpStatus.OK);
     }
 
-    @PutMapping("/rates/{id}")
+    @PutMapping("/messages/{id}")
     public ResponseEntity<Object> update(@PathVariable("id") Long Id, @RequestBody Message message) {
         Optional<Message> oldMessage = messageRepository.findById(Id);
         if(oldMessage.isPresent()) {

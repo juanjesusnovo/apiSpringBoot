@@ -1,6 +1,7 @@
 package com.example.apispringboot.factories;
+import com.example.apispringboot.models.Message;
 import com.example.apispringboot.models.User;
-import org.aspectj.bridge.Message;
+import com.github.javafaker.Faker;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,12 +13,12 @@ import java.util.stream.IntStream;
 
 @Component
 public class MessageFactory {
-//    Faker esFaker = new Faker(new Locale("es-ES"));
+    Faker esFaker = new Faker(new Locale("es-ES"));
     Random rand  = new Random();
 
     public List<Message> get(int number, List<User> users) {
         return IntStream.range(0,number)
-                .mapToObj(x -> new Message(esFaker))
+                .mapToObj(x -> new Message(esFaker.lorem().characters(10), users.get(0)))
                 .collect(Collectors.toList());
     }
 }

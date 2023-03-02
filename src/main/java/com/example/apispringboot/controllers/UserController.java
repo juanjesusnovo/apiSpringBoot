@@ -1,21 +1,25 @@
 package com.example.apispringboot.controllers;
 import com.example.apispringboot.models.User;
 import com.example.apispringboot.repositories.UserRepository;
+import com.example.apispringboot.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 public class UserController {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/users")
-    public ResponseEntity<Object> index(){
-        return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
     }
     @GetMapping("/users/{id}")
     public ResponseEntity<Object> show(@PathVariable("id") Long id){
