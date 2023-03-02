@@ -18,8 +18,8 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/users")
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
+    public ResponseEntity<Object> index() {
+        return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
     @GetMapping("/users/{id}")
     public ResponseEntity<Object> show(@PathVariable("id") Long id){

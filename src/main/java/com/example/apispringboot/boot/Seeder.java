@@ -1,9 +1,11 @@
 package com.example.apispringboot.boot;
 import com.example.apispringboot.factories.MessageFactory;
 import com.example.apispringboot.factories.RatingFactory;
+import com.example.apispringboot.models.Tattooer;
 import com.example.apispringboot.models.User;
 import com.example.apispringboot.repositories.MessageRepository;
 import com.example.apispringboot.repositories.RatingRepository;
+import com.example.apispringboot.repositories.TattooerRepository;
 import com.example.apispringboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,6 +23,8 @@ public class Seeder implements CommandLineRunner {
     RatingRepository ratingRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    TattooerRepository tattooerRepository;
 
     @Autowired
     MessageFactory messageFactory;
@@ -29,8 +33,16 @@ public class Seeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        List<User> users = userRepository.findAll();
-        messageRepository.save(messageFactory.get(10,users));
-        ratingRepository.save(ratingFactory.get(10,users));
+        User user1 = new User("pepe","pepito","xXpepeXx","pepeusuario@gmail.com","1234pass");
+        User user2 = new User("manolo","manolito","donmanolops","manolo@gmail.com","1234pass");
+        Tattooer tattooer1 = new Tattooer("dontattoo","dontattoo@gmail.com","1234pass");
+        Tattooer tattooer2 = new Tattooer("pacoxtattoer","pacoxtattoer@gmail.com","1234pass");
+        messageRepository.save(messageFactory.get(10,user1));
+        ratingRepository.save(ratingFactory.get(10,user2));
+        userRepository.save(user1);
+        userRepository.save(user2);
+        tattooerRepository.save(tattooer1);
+        tattooerRepository.save(tattooer2);
+
     }
 }

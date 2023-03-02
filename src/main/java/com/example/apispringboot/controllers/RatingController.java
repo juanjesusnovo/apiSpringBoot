@@ -16,6 +16,7 @@ public class RatingController {
 
     @GetMapping("/rates")
     public ResponseEntity<Object> index() {
+
         return new ResponseEntity<>(ratingRepository.findAll(), HttpStatus.OK);
     }
 

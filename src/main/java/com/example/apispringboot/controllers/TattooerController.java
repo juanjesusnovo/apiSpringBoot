@@ -15,6 +15,7 @@ public class TattooerController {
 
     @GetMapping("/tattooers")
     public ResponseEntity<Object> index(){
+
         return new ResponseEntity<>(tattooerRepository.findAll(), HttpStatus.OK);
     }
     @GetMapping("/tattooers/{id}")

@@ -15,6 +15,7 @@ public class MessageController {
 
     @GetMapping("/messages")
     public ResponseEntity<Object> index() {
+
         return new ResponseEntity<>(messageRepository.findAll(), HttpStatus.OK);
     }
 
