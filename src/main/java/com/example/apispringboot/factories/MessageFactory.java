@@ -16,9 +16,9 @@ public class MessageFactory {
     Faker esFaker = new Faker(new Locale("es-ES"));
     Random rand  = new Random();
 
-    public List<Message> get(int number, List<User> users) {
+    public List<Message> get(int number, User user) {
         return IntStream.range(0,number)
-                .mapToObj(x -> new Message(esFaker.lorem().characters(10), users.get(0)))
+                .mapToObj(x -> new Message(esFaker.lorem().characters(10), user))
                 .collect(Collectors.toList());
     }
 }

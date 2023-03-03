@@ -15,9 +15,9 @@ public class RatingFactory {
     Faker esFaker = new Faker(new Locale("es-ES"));
     Random rand  = new Random();
 
-    public List<Rating> get(int number, List<User> users) {
+    public List<Rating> get(int number, User user) {
         return IntStream.range(0,number)
-                .mapToObj(x -> new Rating(esFaker.number().numberBetween(0,5), users.get(0)))
+                .mapToObj(x -> new Rating(esFaker.number().numberBetween(0,5), user))
                 .collect(Collectors.toList());
     }
 }

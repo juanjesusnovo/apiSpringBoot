@@ -17,8 +17,7 @@ public class Tattooer {
 
     public Tattooer(){}
 
-    public Tattooer(Long Id, String name, String email, String password){
-        this.Id = Id;
+    public Tattooer(String name, String email, String password){
         this.name = name;
         this.email = email;
         this.password = password;
