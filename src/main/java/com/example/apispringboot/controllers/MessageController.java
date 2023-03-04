@@ -1,6 +1,7 @@
 package com.example.apispringboot.controllers;
 import com.example.apispringboot.models.Message;
 import com.example.apispringboot.repositories.MessageRepository;
+import com.example.apispringboot.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,29 +13,28 @@ import java.util.Optional;
 public class MessageController {
     @Autowired
     MessageRepository messageRepository;
+    @Autowired
+    MessageService messageService;
 
     @GetMapping("/messages")
     public ResponseEntity<Object> index() {
 
-        return new ResponseEntity<>(messageRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.getAllMessages(), HttpStatus.OK);
     }
 
     @GetMapping("/messages/{id}")
     public ResponseEntity<Object> show(@PathVariable("id") Long Id) {
-        return new ResponseEntity<>(messageRepository.findById(Id), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.getMessageById(Id), HttpStatus.OK);
     }
 
     @PostMapping("/messages/create")
     public ResponseEntity<Object> create(@RequestBody Message message) {
-        messageRepository.save(message);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        return new ResponseEntity<>(messageService.createMessage(message), HttpStatus.OK);
     }
 
     @DeleteMapping("/messages/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") Long Id) {
-        Optional<Message> message  = messageRepository.findById(Id);
-        message.ifPresent(value -> messageRepository.delete(value));
-        return new ResponseEntity<>(message.isPresent(), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.deleteMessage(Id), HttpStatus.OK);
     }
 
     @PutMapping("/messages/{id}")

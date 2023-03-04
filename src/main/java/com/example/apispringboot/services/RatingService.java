@@ -27,8 +27,8 @@ public class RatingService {
     }
 
     public Rating createRate(Rating newRate){
-
-        return ratingRepository.save(newRate);
+        ratingRepository.save(newRate);
+        return newRate;
     }
 
     public boolean deleteRate(Long rateId){

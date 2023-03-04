@@ -24,7 +24,8 @@ public class UserService {
     }
 
     public User createUser(User newUser){
-        return userRepository.save(newUser);
+        userRepository.save(newUser);
+        return newUser;
     }
 
     public boolean deleteUser(Long userId){

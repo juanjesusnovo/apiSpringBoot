@@ -27,11 +27,11 @@ public class MessageService {
     }
 
     public Message createMessage(Message newMessage){
-
-        return messageRepository.save(newMessage);
+        messageRepository.save(newMessage);
+        return newMessage;
     }
 
-    public boolean deleteRate(Long rateId){
+    public boolean deleteMessage(Long rateId){
         Optional<Message> message = messageRepository.findById(rateId);
         message.ifPresent(value -> messageRepository.delete(value));
         return message.isPresent();

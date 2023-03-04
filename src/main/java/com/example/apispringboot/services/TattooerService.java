@@ -26,8 +26,8 @@ public class TattooerService {
     }
 
     public Tattooer createTattooer(Tattooer newTattoer){
-
-        return tattooerRepository.save(newTattoer);
+        tattooerRepository.save(newTattoer);
+        return newTattoer;
     }
 
     public boolean deleteTattooer(Long tattooerId){
