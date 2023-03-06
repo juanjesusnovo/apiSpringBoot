@@ -50,7 +50,7 @@ class ApiSpringBootApplicationTests {
     @Test
     void creationTest() throws Exception {
         long usersCount = userRepository.count();
-        String testUser = "{\"name\": \"trolo\", \"surname\": \"troloxx\", \"username\": \"troloxi\", \"email\": \"trolox@gmail.com\", \"password\": \"1234pass }";
+        String testUser = "{\"name\": \"trolo\", \"surname\": \"troloxx\", \"username\": \"troloxi\", \"email\": \"trolox@gmail.com\", \"password\": \"1234pass\" }";
 
         mockMvc.perform(post("/users/create").contentType(MediaType.APPLICATION_JSON).content(testUser))
                 .andExpect(status().isOk())
@@ -61,6 +61,15 @@ class ApiSpringBootApplicationTests {
                 .andExpect(jsonPath("$.email").value("trolox@gmail.com"))
                 .andExpect(jsonPath("$.password").value("1234pass"));
         assert userRepository.count() == usersCount + 1;
+    }
+
+    @Test
+    void updateTest() throws Exception {
+        String testUser = "{\"name\": \"trolo\", \"surname\": \"troloxx\", \"username\": \"troloxi\", \"email\": \"trolox@gmail.com\", \"password\": \"1234pass\" }";
+        mockMvc.perform(put("/users/1").contentType(MediaType.APPLICATION_JSON).content(testUser))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.name").value("trolo"));
     }
 
 }

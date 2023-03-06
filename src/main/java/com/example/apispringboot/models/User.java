@@ -1,5 +1,6 @@
 package com.example.apispringboot.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,19 +15,19 @@ public class User {
     @GeneratedValue
     private Long Id;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "user")
-    private Set<Message> messages = new HashSet<>();
-
-    @JsonBackReference
-    @OneToMany(mappedBy = "user")
-    private Set<Rating> rates = new HashSet<>();
-
     private String name;
     private String surname;
     private String username;
     private String email;
     private String password;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    private Set<Message> messages = new HashSet<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    private Set<Rating> rates = new HashSet<>();
 
     public User () {}
 
@@ -37,4 +38,5 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
 }
