@@ -77,7 +77,7 @@ class ApiSpringBootApplicationTests {
     @Test
     void creationTest() throws Exception {
         long usersCount = userRepository.count();
-        String testUser = "{\"name\": \"trolo\", \"surname\": \"troloxx\", \"username\": \"troloxi\", \"email\": \"trolox@gmail.com\", \"password\": \"1234pass\" }";
+        String testUser = "{\"name\": \"trolo\", \"surname\": \"troloxx\", \"username\": \"troloxi\", \"email\": \"trolox@gmail.com\", \"password\": \"1234pass\", \"isTattooer\": \"false\" }";
 
         mockMvc.perform(post("/users/create").header("Authorization","Bearer "+token).contentType(MediaType.APPLICATION_JSON).content(testUser))
                 .andExpect(status().isOk())
@@ -93,7 +93,7 @@ class ApiSpringBootApplicationTests {
     @Transactional
     @Test
     void updateTest() throws Exception {
-        String testUser = "{\"name\": \"trolo\", \"surname\": \"troloxx\", \"username\": \"troloxi\", \"email\": \"trolox@gmail.com\", \"password\": \"1234pass\" }";
+        String testUser = "{\"name\": \"trolo\", \"surname\": \"troloxx\", \"username\": \"troloxi\", \"email\": \"trolox@gmail.com\", \"password\": \"1234pass\", \"isTattooer\": \"false\" }";
         mockMvc.perform(put("/users/1").header("Authorization","Bearer "+token).contentType(MediaType.APPLICATION_JSON).content(testUser))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

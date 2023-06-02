@@ -22,6 +22,13 @@ public class User {
     private String email;
     private String password;
 
+    private Boolean isTattooer;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn()
+    public Tattooer tattooer;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private Set<Message> messages = new HashSet<>();
@@ -30,14 +37,27 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Rating> rates = new HashSet<>();
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    private Set<Image> images = new HashSet<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    private Set<Style> styles = new HashSet<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    private Set<Location> locations = new HashSet<>();
+
     public User () {}
 
-    public User (String name, String surname, String username, String email, String password){
+    public User (String name, String surname, String username, String email, String password, Boolean isTattooer){
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.email = email;
         this.password = new BCryptPasswordEncoder().encode(password);
+        this.isTattooer = isTattooer;
     }
 
 }
