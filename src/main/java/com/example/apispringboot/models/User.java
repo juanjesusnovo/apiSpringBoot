@@ -1,4 +1,5 @@
 package com.example.apispringboot.models;
+import com.example.apispringboot.dto.UserCreateDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -39,7 +40,7 @@ public class User {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
-    private Set<Image> images = new HashSet<>();
+    private Set<UserImage> images = new HashSet<>();
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
@@ -59,5 +60,12 @@ public class User {
         this.password = new BCryptPasswordEncoder().encode(password);
         this.isTattooer = isTattooer;
     }
-
+    public User(UserCreateDTO userCreateDTO){
+        this.name = userCreateDTO.getName();
+        this.surname = userCreateDTO.getSurname();
+        this.username = userCreateDTO.getUsername();
+        this.email = userCreateDTO.getEmail();
+        this.password = userCreateDTO.getPassword();
+        this.isTattooer = userCreateDTO.getIsTattooer();
+    }
 }

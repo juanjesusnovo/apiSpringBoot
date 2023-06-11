@@ -33,15 +33,11 @@ public class Seeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        User user1 = new User("pepe","pepito","xXpepeXx","pepeusuario@gmail.com","1234pass", false);
-        User user2 = new User("manolo","manolito","donmanolops","manolo@gmail.com","1234pass", true);
+        User user1 = new User("admin","admin","admin","admin@gmail.com","1234pass", false);
         Tattooer tattooer1 = new Tattooer("dontattoo","dontattoo@gmail.com","1234pass");
         Tattooer tattooer2 = new Tattooer("pacoxtattoer","pacoxtattoer@gmail.com","1234pass");
         userRepository.save(user1);
-        userRepository.save(user2);
         tattooerRepository.save(tattooer1);
         tattooerRepository.save(tattooer2);
-        messageRepository.saveAll(messageFactory.get(10,user1));
-        ratingRepository.saveAll(ratingFactory.get(10,user2));
     }
 }

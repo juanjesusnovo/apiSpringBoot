@@ -1,4 +1,6 @@
 package com.example.apispringboot.models;
+import com.example.apispringboot.dto.TattooerCreateDTO;
+import com.example.apispringboot.dto.TattooerDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,12 +35,22 @@ public class Tattooer {
     @OneToMany(mappedBy = "tattooer")
     private Set<Location> locations = new HashSet<>();
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "tattooer")
+    private Set<TattooerImage> images = new HashSet<>();
+
 
     public Tattooer(){}
 
     public Tattooer(String name, String email, String password){
         this.name = name;
         this.email = email;
-        this.password = password;
+        this.password = new BCryptPasswordEncoder().encode(password);
+    }
+
+    public Tattooer(TattooerCreateDTO tattooerCreateDTO){
+        this.name = tattooerCreateDTO.getName();
+        this.email = tattooerCreateDTO.getEmail();
+        this.password = tattooerCreateDTO.getPassword();
     }
 }

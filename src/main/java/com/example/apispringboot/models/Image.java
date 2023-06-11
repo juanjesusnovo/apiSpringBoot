@@ -21,10 +21,10 @@ public class Image {
     private String title;
     private Binary image;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn()
-    private User user;
+   // @JsonBackReference
+   // @ManyToOne
+   // @JoinColumn()
+   // private User user;
 
     public Image(String title){
         this.title = title;
