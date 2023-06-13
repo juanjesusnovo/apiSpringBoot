@@ -42,9 +42,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<UserImage> images = new HashSet<>();
 
-    @JsonManagedReference
+   /* @JsonManagedReference
     @OneToMany(mappedBy = "user")
-    private Set<Style> styles = new HashSet<>();
+    private Set<Style> styles = new HashSet<>();*/
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user")

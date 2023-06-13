@@ -20,6 +20,12 @@ public class TattooerDTO implements Serializable {
     private String name;
     private String email;
     private String password;
+    private String info;
+    private String styles;
+    private String tfno;
+    private String twitter;
+    private String instagram;
+    private String facebook;
 
     private List<String> images;
     private List<String> tattooers;
@@ -29,6 +35,12 @@ public class TattooerDTO implements Serializable {
         this.name = tattooer.getName();
         this.email = tattooer.getEmail();
         this.password = tattooer.getPassword();
+        this.info = tattooer.getInfo();
+        this.styles = tattooer.getStyles();
+        this.tfno = tattooer.getTfno();
+        this.twitter = tattooer.getTwitter();
+        this.instagram = tattooer.getInstagram();
+        this.facebook = tattooer.getFacebook();
         this.images = new ArrayList<>();
         for(TattooerImage tattooerImage: tattooer.getImages()){
             images.add(String.valueOf(tattooerImage.getId()));

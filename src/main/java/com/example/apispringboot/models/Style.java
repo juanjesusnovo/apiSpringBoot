@@ -1,3 +1,4 @@
+/*
 package com.example.apispringboot.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -36,3 +37,4 @@ public class Style {
         this.tattooer = tattooer;
     }
 }
+*/

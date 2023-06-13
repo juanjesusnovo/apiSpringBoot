@@ -1,12 +1,17 @@
 package com.example.apispringboot.controllers;
+import com.example.apispringboot.dto.TattooerCreateDTO;
+import com.example.apispringboot.dto.TattooerDTO;
 import com.example.apispringboot.models.Tattooer;
 import com.example.apispringboot.repositories.TattooerRepository;
 import com.example.apispringboot.services.TattooerService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,16 +23,22 @@ public class TattooerController {
 
     @GetMapping("/tattooers")
     public ResponseEntity<Object> index(){
-
-        return new ResponseEntity<>(tattooerService.getAllTattooers(), HttpStatus.OK);
+        List<TattooerDTO> result = new ArrayList<>();
+        for (Tattooer tattooer:tattooerRepository.findAll()){
+            result.add(new TattooerDTO(tattooer));
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @GetMapping("/tattooers/{id}")
     public ResponseEntity<Object> show(@PathVariable("id") Long id){
-        return new ResponseEntity<>(tattooerService.getTattooerById(id), HttpStatus.OK);
+        Tattooer tattooer = tattooerRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException(id.toString()));
+        return new ResponseEntity<>(new TattooerDTO((tattooer)), HttpStatus.OK);
     }
     @PostMapping("/tattooers/create")
-    public ResponseEntity<Object> create(@RequestBody Tattooer tattooer){
-        return new ResponseEntity<>(tattooerService.createTattooer(tattooer), HttpStatus.OK);
+    public ResponseEntity<Object> create(@RequestBody TattooerCreateDTO tattooerCreateDTO){
+        Tattooer tattooer = tattooerRepository.save(new Tattooer(tattooerCreateDTO));
+        return new ResponseEntity<>(tattooer, HttpStatus.OK);
     }
     @DeleteMapping("/tattooers/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") Long id){
