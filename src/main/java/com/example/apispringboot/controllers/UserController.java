@@ -37,6 +37,11 @@ public class UserController {
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    @GetMapping("/users/{name}")
+    public ResponseEntity<Object> show(@PathVariable("name") String name){
+        User user = userRepository.findByUsername(name);
+        return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
+    }
     @GetMapping("/users/{id}")
     public ResponseEntity<Object> show(@PathVariable("id") Long id){
         User user = userRepository.findById(id)
