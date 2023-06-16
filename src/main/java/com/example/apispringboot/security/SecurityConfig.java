@@ -85,6 +85,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain tokenSecurityFilterChain(HttpSecurity http) throws Exception {
 		return http
+				.cors().configurationSource(corsConfigurationSource()).and()
 				.securityMatcher("/token**")
 				.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
