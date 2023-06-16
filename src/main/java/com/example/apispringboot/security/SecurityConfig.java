@@ -68,6 +68,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests((auth -> auth.requestMatchers(HttpMethod.GET, "/images/**").permitAll()))
 				.authorizeHttpRequests((auth -> auth.requestMatchers(HttpMethod.POST,"/tattooer/create/**").permitAll()))
 				.authorizeHttpRequests((auth -> auth.requestMatchers(HttpMethod.POST,"/users/create/**").permitAll()))
+				.authorizeHttpRequests((auth -> auth.requestMatchers(HttpMethod.POST,"/users/tattooer/**").permitAll()))
 				.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
