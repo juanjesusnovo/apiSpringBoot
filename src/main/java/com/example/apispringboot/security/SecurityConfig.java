@@ -87,6 +87,7 @@ public class SecurityConfig {
 		return http
 				.cors().configurationSource(corsConfigurationSource()).and()
 				.securityMatcher("/token**")
+				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll())
 				.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.csrf(AbstractHttpConfigurer::disable)
