@@ -25,7 +25,7 @@ public class ImageController {
     @GetMapping("/images/{id}")
     public String getImage(@PathVariable("id") String id){
         Image image = imageService.getImageById(id);
-        return "<img src=\"data:image/jpeg;base64, " + Base64.getEncoder().encodeToString(image.getImage().getData()) + "\">";
+        return "data:image/jpeg;base64, " + Base64.getEncoder().encodeToString(image.getImage().getData());
     }
 
     @PostMapping("/images/add")
