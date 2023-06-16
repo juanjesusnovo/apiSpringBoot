@@ -7,10 +7,13 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,6 +42,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+	@Autowired
+	@Qualifier("myUserDetailsService")
+	MyUserDetailsService myUserDetailsService;
+
 	private final RsaKeyProperties jwtConfigProperties;
 
 	public SecurityConfig(RsaKeyProperties jwtConfigProperties) {
@@ -53,7 +60,13 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
+				.cors().configurationSource(corsConfigurationSource()).and()
 				.csrf(AbstractHttpConfigurer::disable)
+				.userDetailsService(myUserDetailsService)
+				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll())
+				.authorizeHttpRequests((auth -> auth.requestMatchers(HttpMethod.GET, "/tattooers/**").permitAll()))
+				.authorizeHttpRequests((auth -> auth.requestMatchers(HttpMethod.POST,"/tattooer/create/**").permitAll()))
+				.authorizeHttpRequests((auth -> auth.requestMatchers(HttpMethod.POST,"/users/create/**").permitAll()))
 				.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
@@ -96,7 +109,7 @@ public class SecurityConfig {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(List.of("*"));
 		configuration.setAllowedHeaders(List.of("*"));
-		configuration.setAllowedMethods(List.of("GET"));
+		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
