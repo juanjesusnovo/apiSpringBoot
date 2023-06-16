@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.Binary;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
@@ -22,7 +23,9 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private String picture;
 
+    private Boolean isUser;
     private Boolean isTattooer;
 
     @ManyToOne
@@ -36,7 +39,7 @@ public class User {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
-    private Set<Rating> rates = new HashSet<>();
+    private Set<Like> rates = new HashSet<>();
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
@@ -50,15 +53,21 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Location> locations = new HashSet<>();
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    private Set<Book> books = new HashSet<>();
+
     public User () {}
 
-    public User (String name, String surname, String username, String email, String password, Boolean isTattooer){
+    public User (String name, String surname, String username, String email, String password, Boolean isTattooer, String picture){
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.email = email;
         this.password = new BCryptPasswordEncoder().encode(password);
         this.isTattooer = isTattooer;
+        this.picture = picture;
+        this.isUser = true;
     }
     public User(UserCreateDTO userCreateDTO){
         this.name = userCreateDTO.getName();
@@ -67,5 +76,6 @@ public class User {
         this.email = userCreateDTO.getEmail();
         this.password = userCreateDTO.getPassword();
         this.isTattooer = userCreateDTO.getIsTattooer();
+        this.picture = userCreateDTO.getPicture();
     }
 }

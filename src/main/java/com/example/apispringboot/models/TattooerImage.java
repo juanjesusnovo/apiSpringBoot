@@ -19,5 +19,10 @@ public class TattooerImage {
     private Tattooer tattooer;
 
     private String image;
+
+    public TattooerImage(Tattooer tattooer, String image){
+        this.tattooer = tattooer;
+        this.image = image;
+    }
 }
 

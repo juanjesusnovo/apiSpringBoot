@@ -1,6 +1,5 @@
 package com.example.apispringboot.models;
 import com.example.apispringboot.dto.TattooerCreateDTO;
-import com.example.apispringboot.dto.TattooerDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +27,7 @@ public class Tattooer {
     private String twitter;
     private String instagram;
     private String facebook;
+    private String picture;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "tattooer")
@@ -36,6 +36,14 @@ public class Tattooer {
     /*@JsonManagedReference
     @OneToMany(mappedBy = "tattooer")
     private Set<Style> styles = new HashSet<>();*/
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "tattooer")
+    private Set<Book> books = new HashSet<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "tattooer")
+    private Set<Like> likes = new HashSet<>();
 
     @JsonManagedReference
     @OneToMany(mappedBy = "tattooer")
@@ -48,7 +56,7 @@ public class Tattooer {
 
     public Tattooer(){}
 
-    public Tattooer(String name, String email, String password, String info, String styles, String tfno, String twitter, String instagram, String facebook){
+    public Tattooer(String name, String email, String password, String info, String styles, String tfno, String twitter, String instagram, String facebook, String picture){
         this.name = name;
         this.email = email;
         this.password = new BCryptPasswordEncoder().encode(password);
@@ -58,6 +66,7 @@ public class Tattooer {
         this.twitter = twitter;
         this.instagram = instagram;
         this.facebook = facebook;
+        this.picture = picture;
     }
 
     public Tattooer(TattooerCreateDTO tattooerCreateDTO){
@@ -70,5 +79,6 @@ public class Tattooer {
         this.twitter = tattooerCreateDTO.getTwitter();
         this.instagram = tattooerCreateDTO.getInstagram();
         this.facebook = tattooerCreateDTO.getFacebook();
+        this.picture = tattooerCreateDTO.getPicture();
     }
 }

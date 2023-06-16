@@ -21,8 +21,8 @@ public class UserDTO implements Serializable {
     private String surname;
     private String username;
     private String email;
-    private String password;
     private Boolean isTattooer;
+    private String picture;
 
     private List<String> images;
 
@@ -32,11 +32,11 @@ public class UserDTO implements Serializable {
         this.surname = user.getSurname();
         this.username = user.getUsername();
         this.email = user.getEmail();
-        this.password = user.getPassword();
         this.isTattooer = user.getIsTattooer();
         this.images = new ArrayList<>();
         for (UserImage image: user.getImages()){
-            images.add(String.valueOf(image.getId()));
+            images.add(String.valueOf(image.getImage()));
         }
+        this.picture = user.getPicture();
     }
 }

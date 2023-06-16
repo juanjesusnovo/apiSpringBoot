@@ -1,10 +1,8 @@
 package com.example.apispringboot.models;
 
+import com.example.apispringboot.dto.LocationCreateDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,10 +12,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Location {
     @Id
+    @GeneratedValue
     private Long id;
 
-    private Integer lat;
-    private Integer lng;
+    private Float lat;
+    private Float lng;
 
     @JsonBackReference
     @ManyToOne
@@ -29,14 +28,12 @@ public class Location {
     @JoinColumn
     private Tattooer tattooer;
 
-    public Location(Long id, Integer lat, Integer lng, User user){
-        this.id = id;
+    public Location(Float lat, Float lng, User user){
         this.lat = lat;
         this.lng = lng;
         this.user = user;
     }
-    public Location(Long id, Integer lat, Integer lng, Tattooer tattooer){
-        this.id = id;
+    public Location(Float lat, Float lng, Tattooer tattooer){
         this.lat = lat;
         this.lng = lng;
         this.tattooer = tattooer;

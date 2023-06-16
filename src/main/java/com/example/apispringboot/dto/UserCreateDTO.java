@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.Binary;
 
 import java.io.Serializable;
 
@@ -16,6 +17,7 @@ public class UserCreateDTO implements Serializable {
     private String username;
     private String email;
     private String password;
+    private String picture;
 
     private Boolean isTattooer;
 }

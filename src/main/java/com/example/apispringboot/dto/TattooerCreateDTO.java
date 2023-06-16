@@ -20,4 +20,5 @@ public class TattooerCreateDTO implements Serializable {
     private String twitter;
     private String instagram;
     private String facebook;
+    private String picture;
 }

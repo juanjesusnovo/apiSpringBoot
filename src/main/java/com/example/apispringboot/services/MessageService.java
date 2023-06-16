@@ -1,6 +1,5 @@
 package com.example.apispringboot.services;
 import com.example.apispringboot.models.Message;
-import com.example.apispringboot.models.Rating;
 import com.example.apispringboot.repositories.MessageRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

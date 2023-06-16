@@ -1,7 +1,7 @@
 package com.example.apispringboot.services;
 
 import com.example.apispringboot.models.Image;
-import com.example.apispringboot.repositories.ImagesReposiroty;
+import com.example.apispringboot.repositories.ImagesRepository;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,28 +15,28 @@ import java.util.Optional;
 @Service
 public class ImageService {
     @Autowired
-    private ImagesReposiroty imagesReposiroty;
+    private ImagesRepository imagesRepository;
 
     public String addImage(String title, MultipartFile file) throws IOException {
         Image image = new Image(title);
         image.setImage(
                 new Binary(BsonBinarySubType.BINARY, file.getBytes())
         );
-        image = imagesReposiroty.insert(image);
+        image = imagesRepository.insert(image);
         return image.getId();
     }
 
     public List<Image> getAllImages() {
-        return (List<Image>) imagesReposiroty.findAll();
+        return (List<Image>) imagesRepository.findAll();
     }
 
     public Image getImageById(String id) {
-        return imagesReposiroty.findById(id).get();
+        return imagesRepository.findById(id).get();
     }
 
     public boolean deleteImage(String id) {
-        Optional<Image> image = imagesReposiroty.findById(id);
-        image.ifPresent(value -> imagesReposiroty.delete(value));
+        Optional<Image> image = imagesRepository.findById(id);
+        image.ifPresent(value -> imagesRepository.delete(value));
         return image.isPresent();
     }
 }
