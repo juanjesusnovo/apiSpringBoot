@@ -54,6 +54,11 @@ public class UserController {
         User user = userRepository.save(new User(name, surname, username, email, password, isTattooer, imagen));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+    @PostMapping("/users/tattooer")
+    public ResponseEntity<Object> create(@RequestParam("name") String name, @RequestParam("password") String password, @RequestParam("isTattooer") Boolean isTattooer, @RequestParam("tattooerId") Long tattooerId){
+        User user = userRepository.save( new User(name, password, isTattooer,tattooerId));
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") Long id){
         return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);

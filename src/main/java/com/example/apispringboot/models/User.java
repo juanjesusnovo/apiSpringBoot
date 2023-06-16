@@ -24,6 +24,7 @@ public class User {
     private String email;
     private String password;
     private String picture;
+    private Long tattoerId;
 
     private Boolean isUser;
     private Boolean isTattooer;
@@ -68,6 +69,12 @@ public class User {
         this.isTattooer = isTattooer;
         this.picture = picture;
         this.isUser = true;
+    }
+    public User(String name, String password, Boolean isTattooer, Long tattoerId){
+        this.name = name;
+        this.password = password;
+        this.isTattooer = isTattooer;
+        this.tattoerId = tattoerId;
     }
     public User(UserCreateDTO userCreateDTO){
         this.name = userCreateDTO.getName();
