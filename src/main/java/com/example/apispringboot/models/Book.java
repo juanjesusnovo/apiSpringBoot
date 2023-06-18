@@ -33,4 +33,10 @@ public class Book {
         this.pending = true;
         this.date = "";
     }
+    public Book(User user, Tattooer tattooer, String date) {
+        this.user = user;
+        this.tattooer = tattooer;
+        this.pending = false;
+        this.date = "";
+    }
 }
