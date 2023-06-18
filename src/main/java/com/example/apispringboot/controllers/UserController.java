@@ -39,7 +39,7 @@ public class UserController {
     }
     @GetMapping("/users/{name}")
     public ResponseEntity<Object> show(@PathVariable("name") String name){
-        User user = userRepository.findByUsername(name);
+        User user = userRepository.findByName(name);
         return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
     }
     @GetMapping("/users/{id}")
