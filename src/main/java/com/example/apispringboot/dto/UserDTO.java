@@ -22,6 +22,7 @@ public class UserDTO implements Serializable {
     private String username;
     private String email;
     private Boolean isTattooer;
+    private Long tattooerId;
     private String picture;
 
     private List<String> images;
@@ -38,5 +39,6 @@ public class UserDTO implements Serializable {
             images.add(String.valueOf(image.getImage()));
         }
         this.picture = user.getPicture();
+        this.tattooerId = user.getTattoerId();
     }
 }
